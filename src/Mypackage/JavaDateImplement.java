@@ -1,63 +1,48 @@
 package Mypackage;
+
 import java.util.ArrayList;
-import java.sql.Date;
-public class JavaDateImplement implements JavaData {
+import java.util.List;
+
+public class JavaDateImplement {
 	private int ID;
 	private String Author;
-	private ArrayList<String> BookName;
-	private String Date;
-
-	public void JavaDate(int ID, String Author, String book, String date) {
-		this.ID = ID;
-		this.Author = Author;
-		this.BookName.add(book);
-		this.Date = date;
+	private String Country;
+	private int Age;
+	private List<BookList> Books;
+	private int BooksNumber;
+	public String getCountry(){
+		return Country;
 	}
-	public void deleteBook(int i) {
-		BookName.remove(i);
+	public int getAge(){
+		return Age; 
 	}
-
-	@Override
 	public int getID() {
 
 		return ID;
 	}
-
-	@Override
 	public String getAuthor() {
 		// TODO Auto-generated method stub
 		return Author;
 	}
-
-	@Override
-	public ArrayList<String> getBook() {
-		// TODO Auto-generated method stub
-		return BookName;
+	public List<BookList> getBooks(){
+		return Books;
+	}
+	public void JavaDate(String Country,int Age,String Author,int ID) {
+		this.ID = ID;
+		this.Author = Author;
+		this.Age = Age;
+		this.Country = Country;
+		this.Books = new ArrayList<BookList>();
+		BooksNumber = 0;
+	}
+	public void JavaBookDate(float Price,String PublishDate,String Publisher,int AuthorID,String Title,int ISBN){
+		BookList book = new BookList(Price,PublishDate,Publisher,AuthorID,Title,ISBN);
+		System.out.print("init book list");
+		System.out.print(book.getBookName());
+		BooksNumber++;
+		this.Books.add(book);
+		System.out.print("finish add book");
 	}
 
-	@Override
-	public String getDate() {
-		// TODO Auto-generated method stub
-		return Date;
-	}
-
-	@Override
-	public void setBook(int i, String bookNames) {
-		// TODO Auto-generated method stub
-		this.BookName.set(i,bookNames) ;
-	}
-
-	@Override
-	public void setDate(String date) {
-		// TODO Auto-generated method stub
-		Date = date;
-	}
-
-	@Override
-	public void addBook(String book) {
-		// TODO Auto-generated method stub
-		this.BookName.add(book);
-
-	}
 
 }

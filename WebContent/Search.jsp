@@ -17,7 +17,7 @@
 	</div>
 	<div align="center">DynamicBookSystem</div>
 	<div align="center" style="margin-top: 60px;">
-		<form name="Request">
+		<form action="Result.jsp" method="POST" name="Request">
 			<input type="text" placeholder="请输入作者姓名" name="author" /> <input
 				type="button" value="搜索" onclick="window.location.href='Result.jsp'" />
 		</form>
