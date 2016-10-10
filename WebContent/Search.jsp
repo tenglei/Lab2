@@ -1,25 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link href="assets/css/slicy.css" rel="stylesheet" type="text/css" />
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DynamicBookSystem</title>
-<script src="Search.js" type="text/javascript"></script>
+<script src="Search.jsp" type="text/javascript"></script>
 </head>
-<body>
-	<!-- 
-<div id="Layer1" style="position:absolute; width:100%; height:100%; ">    
-<img src="images/background.jpg" height="100%" width="100%"/>    
-</div> 
- -->
+<body style="background-image: url(images/bg.jpg)">
+
 	<div align="center" style="margin-top: 48px;">
-		<img src="images/dog.jpg" width="100" height="150" />
+		<a href="#"><img src="images/dog.jpg" class="img-scale"
+			width="150" height="225" /></a>
 	</div>
-	<div align="center">DynamicBookSystem</div>
+	<p class="txt-green" align="center">DynamicBookSystem</p>
 	<div align="center" style="margin-top: 60px;">
-		<form action="Result.jsp" method="POST" name="Request">
-			<input type="text" placeholder="请输入作者姓名" name="author" /> <input
-				type="button" value="搜索" onclick="window.location.href='Result.jsp'" />
+		<form action="Result" method="POST" >
+			<input type="text" placeholder="请输入作者姓名" name="Author" /> <a
+				href="Error.html" class="btn bg-green bg-inverse">搜索</a>
 		</form>
 	</div>
 

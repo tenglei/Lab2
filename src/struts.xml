@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <package name="default" namespace="/" extends="struts-default">
+        <action name="Result" class="Mypackage.JavaDataDao" method="search">
+            <result name="found">/Result.jsp</result>
+            <result name="notfound">/notfound.html</result>
+        </action>
+        
+         <action name="Show" class="Mypackage.showAction" method="search">
+            <result name="success">/Show.jsp</result>
+            <result name="fail">/Error.html</result>
+        </action>
+        
+         <action name="Delete" class="Mypackage.deleteAction" method="search">
+            <result name="success">/success.html</result>
+            <result name="fail">/Error.html</result>
+            <result name="isbnerror">/isbnerror.html</result>
+            <result name="empty">/empty.html</result>
+        </action>
+        
+         <action name="Edit" class="Mypackage.editAction" method="search">
+            <result name="success">/success.html</result>
+            <result name="fail">/Error.html</result>
+             <result name="isbnerror">/isbnerror.html</result>
+             <result name="empty">/empty.html</result>
+        </action>
+        
+         <action name="Add" class="Mypackage.addAction" method="search">
+            <result name="success">/success.html</result>
+            <result name="fail">/Error.html</result>
+            <result name="empty">/empty.html</result>
+        </action>
+    </package>
+
+    
+
+    <!-- Add packages here -->
+
+</struts>

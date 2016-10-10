@@ -6,13 +6,46 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
-import com.mysql.jdbc.Connection;
+import com.opensymphony.xwork2.ActionSupport;
 
-public class JavaDataDao {
-	public List<JavaDateImplement> search(String author) {
-		List<JavaDateImplement> list = new ArrayList<JavaDateImplement>();
+public class JavaDataDao extends ActionSupport {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JavaDateImplement data = new JavaDateImplement();
+	private List<BookList> Books = new ArrayList<BookList>();
+	private String Author;
+	private List<JavaDateImplement> list = new ArrayList<JavaDateImplement>();
+
+	public List<JavaDateImplement> getlist() {
+		return this.list;
+	}
+
+	public void setlist(List<JavaDateImplement> list) {
+		this.list = list;
+	}
+
+	public String getAuthor() {
+		return this.Author;
+	}
+
+	public void setAuthor(String Author) {
+		this.Author = Author;
+	}
+
+	public JavaDateImplement getData() {
+		return this.data;
+	}
+
+	public void setData(JavaDateImplement data) {
+		this.data = data;
+	}
+
+	public String search() {
+		String rlt;
+
 		java.sql.Connection con = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -25,44 +58,66 @@ public class JavaDataDao {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/authorlist?useUnicode=true&characterEncoding=GBK", "root", "87239107");
+
+			System.out.print("参数：");
+			System.out.print(this.Author);
+
+			con = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/authorlist?useUnicode=true&characterEncoding=GBK", "root", "87239107");
 			String authortable = "select * from Author where Name= ? ";
 			psmt = con.prepareStatement(authortable);
-			psmt.setString(1, author);
-			System.out.print("参数：");
-			System.out.print(author);
+			psmt.setString(1, this.Author);
 			rs = psmt.executeQuery();
-			while (rs.next()) {
-				Integer authorID = rs.getInt(4);
-				System.out.print("Finish first found!");
-				String booktable = "select * from Book where AuthorID=?";
-				PreparedStatement psmt2 = con.prepareStatement(booktable);
-				psmt2.setString(1, authorID.toString());
-				rs2 = psmt2.executeQuery();
-				System.out.print("Into while");
-				
-				JavaDateImplement tmp = new JavaDateImplement();
-				String Country = rs.getString(1);
-				int Age = rs.getInt(2);
-				String Name = rs.getString(3);
-				int AuthorID = rs.getInt(4);
-				tmp.JavaDate(Country, Age, Name, AuthorID);
-				while (rs2.next()) {					
-					float Price = rs2.getFloat(1);
-					String PublishDate = rs2.getString(2);
-					String Publisher = rs2.getString(3);
-					Integer AuthorIDIn = rs2.getInt(4);
-					String Title = rs2.getString(5);
-					Integer ISBN = rs2.getInt(6);
-					tmp.JavaBookDate(Price, PublishDate, Publisher, AuthorIDIn, Title, ISBN);
-					System.out.print("finish book init");
+			if (rs.next()) {
+				rs.previous();
+				while (rs.next()) {
+					Integer authorID = rs.getInt(4);
+					// System.out.print("Finish first found!");
+					String booktable = "select * from Book where AuthorID=?";
+					PreparedStatement psmt2 = con.prepareStatement(booktable);
+					psmt2.setString(1, authorID.toString());
+					rs2 = psmt2.executeQuery();
+					if (rs2.next()) {
+						rs2.previous();
+					} else {
+						return rlt = "notfound";
+					}
+					// System.out.print("Into while");
+
+					String Country = rs.getString(1);
+					int Age = rs.getInt(2);
+					String Name = rs.getString(3);
+					int AuthorID = rs.getInt(4);
+					this.data.JavaDate(Country, Age, Name, AuthorID);
+
+					while (rs2.next()) {
+						float Price = rs2.getFloat(1);
+						String PublishDate = rs2.getString(2);
+						String Publisher = rs2.getString(3);
+						Integer AuthorIDIn = rs2.getInt(4);
+						String Title = rs2.getString(5);
+						Integer ISBN = rs2.getInt(6);
+						this.data.JavaBookDate(Price, PublishDate, Publisher, AuthorIDIn, Title, ISBN);
+						// System.out.print("finish book init");
+					}
+					System.out.print(this.data.getAuthor());
+					this.Books = data.getBooks();
+					list.add(this.data);
 				}
-				System.out.print(tmp.getAuthor());
-				list.add(tmp);
+
+				System.out.print("Connect success!\n");
+				rlt = "found";
+			} else {
+				rs.previous();
+				rlt = "notfound";
+				System.out.print("rlt=");
+				System.out.print(rlt);
+				return rlt;
 			}
-			System.out.print("Connect success!\n");
+
 		} catch (SQLException e) {
 			System.out.print("Connect Error!\n");
+			rlt = "notfound";
 			e.printStackTrace();
 		} finally {
 			try {
@@ -76,12 +131,21 @@ public class JavaDataDao {
 					con.close();
 				}
 			} catch (SQLException e) {
+				rlt = "notfound";
 				e.printStackTrace();
 			}
 		}
 		// System.out.print("Finish datadao!\n");
-		return list;
+		return rlt;
 
+	}
+
+	public List<BookList> getBooks() {
+		return Books;
+	}
+
+	public void setBooks(List<BookList> books) {
+		Books = books;
 	}
 
 }
