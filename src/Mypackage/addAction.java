@@ -10,6 +10,7 @@ import java.util.List;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class addAction extends ActionSupport {
+
 	private JavaDateImplement data = new JavaDateImplement();
 	private String Author;
 	private String nAuthor;
@@ -48,6 +49,7 @@ public class addAction extends ActionSupport {
 	}
 
 	public String search() {
+		System.out.print("change3");
 		String rlt;
 		java.sql.Connection con = null;
 		PreparedStatement psmt = null;
