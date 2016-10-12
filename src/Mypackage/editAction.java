@@ -45,6 +45,7 @@ public class editAction extends ActionSupport {
 	}
 
 	public String search() {
+		System.out.print("change2");
 		String rlt = null;
 		java.sql.Connection con = null;
 		PreparedStatement psmt = null;
