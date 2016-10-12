@@ -40,7 +40,7 @@ public class deleteAction extends ActionSupport {
 	}
 
 	public String search() {
-		System.out.print("change1");
+		System.out.print("change2");
 		String rlt;
 		java.sql.Connection con = null;
 		PreparedStatement psmt = null;
